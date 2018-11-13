@@ -44,7 +44,7 @@ class Antd extends Component {
     }
 
     componentDidMount() {
-        const action = getInitListAction();
+        const action = getInitListAction()
         store.dispatch(action)
     }
 
