@@ -1,0 +1,71 @@
+.show {
+    opacity: 1;
+    animation: show-item 0.5s ease-in forwards;
+}
+
+.hide {
+    /*forwards表示保存最后一针的状态*/
+    animation: hide-item 0.5s ease-in forwards;
+}
+
+@keyframes hide-item {
+    0% {
+        opacity: 1;
+        color: red;
+    }
+    50% {
+        opacity: 0.5;
+        color: blue;
+    }
+    100% {
+        opacity: 0;
+        color: green;
+    }
+}
+
+@keyframes show-item {
+    100% {
+        opacity: 1;
+        color: red;
+    }
+    50% {
+        opacity: 0.5;
+        color: blue;
+    }
+    0% {
+        opacity: 0;
+        color: green;
+    }
+}
+
+.toggle2-enter,.toggle2-appear {
+    opacity:0;
+    color:red;
+}
+
+.toggle2-enter-active,.toggle2-appear-active{
+    opacity:1;
+    color:green;
+    transition:opacity 0.5s ease-in;
+}
+
+.toggle2-enter-done {
+    opacity:1;
+    color:green;
+}
+
+.toggle2-exit {
+    opacity:1;
+    color:green;
+}
+
+.toggle2-exit-active {
+    opacity:0;
+    color: red;
+    transition:opacity 0.5s ease-in;
+}
+
+.toggle2-exit-done {
+    opacity:0;
+    color: red;
+}
