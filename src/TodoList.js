@@ -1,33 +1,22 @@
 import React, {Component, Fragment} from 'react'
 import TodoItem from './TodoItem'
 import {connect} from 'react-redux'
-import {getInputChangedAtion, getAddListAtion, getDeleteItemAtion, initListAction} from './store/actionCreators'
+import {getInputChangedAtion, getAddListAtion, getDeleteItemAtion, getInitListAction} from './store/actionCreators'
 
-import axios from 'axios'
-const apiUrl = 'http://yapi.demo.qunar.com/mock/20004'
 
 // 成了UI组件
 class TodoList extends Component {
 
     // 生命周期函数开始
     componentDidMount() {
-        // ajax放在这里 虽然推介放在这儿，但本人认为放在willMount中更合适
-        axios.get(apiUrl + '/api/todolist').then((res) => {
-            this.props.initList(res.data)
-        }).catch((e) => {
-            alert(e)
-        })
+        this.props.initList()
     }
 
     render() {
         return (
             <Fragment>
                 <div>
-                    <label htmlFor="inputName">输入内容</label> {/*这里用不能用for, 因为jsx中for表示循环*/}
-                    {/* 注释的写法 */}
-                    {
-                        // 用className 因为class表示的是类，有混淆
-                    }
+                    <label htmlFor="inputName">输入内容</label>
                     <input id="inputName" className="in" value={this.props.inputValue}
                            onChange={this.props.handleInputChange}
                            ref={(input) => {
@@ -74,8 +63,8 @@ const mapDispatchToProps = (dispatch) => {
             const action = getDeleteItemAtion(index)
             dispatch(action)
         },
-        initList(list) {
-            const action = initListAction(list)
+        initList() {
+            const action = getInitListAction()
             dispatch(action)
         }
     }

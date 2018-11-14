@@ -1,6 +1,9 @@
 // 统一管理action
 import {CHANGE_INPUT_VALUE, ADD_LIST_VALUE, DELETE_ITEM, INIT_LIST} from './actionTypes'
 
+import axios from 'axios'
+const apiUrl = 'http://yapi.demo.qunar.com/mock/20004'
+
 export const getInputChangedAtion = (value) => ({
     type: CHANGE_INPUT_VALUE,
     value
@@ -17,11 +20,11 @@ export const initListAction = (list) => ({
     list
 })
 // 借助redux-thunk可以在action中写ajax，action返回的数据可以是函数
-// export const getInitListAction = () => {
-//     return (dispatch) => {
-//         axios.get(apiUrl + '/api/todolist').then((res) => {
-//             const action = initListAction(res.data)
-//             dispatch(action)
-//         })
-//     }
-// }
+export const getInitListAction = () => {
+    return (dispatch) => {
+        axios.get(apiUrl + '/api/todolist').then((res) => {
+            const action = initListAction(res.data)
+            dispatch(action)
+        })
+    }
+}
