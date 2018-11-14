@@ -1,44 +1,18 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 项目介绍
+- 该项目是慕课网 < React 16.4 开发简书项目 从零基础入门到实战 > 的随堂笔记
+- 主要内容:前期是基础知识和简单用法，后面则是实战，部署在不同分支上
+### 运行
+- npm install
+- npm run start
+- npm run build
+- npm run eject
+### 分支介绍
+1. master
+- 主要开发分支，包含了react基础用法、todolist、antd使用、简单动画实现、redux、redux-thunk等使用方法
+2. dev-reduxSaga
+- 基于master分支创建，介绍了redux-saga的使用方法，比较复杂
+3. dev-reactRedux
+- 也是基于master分支创建，介绍了react-redux的使用方法
+4. dev-reactRedux+Thunk
+- 基于reactRedux分支创建，将redux-thunk和react-redux的使用结合起来
