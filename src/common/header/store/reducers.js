@@ -1,16 +1,16 @@
 import {HANDLE_FOCUS, HANDLE_BLUR} from './actionTypes'
-
-const defaultState = {
+import {fromJS} from 'immutable'
+// 变为immutable对象，可以改变值
+const defaultState = fromJS({
     focused: false
-}
-// 必须是纯函数：输入固定，输出就是固定, 且不能有副作用
+})
 // 不纯函数：返回 new Date()
 export default (state = defaultState, action) => {
-    const newState = JSON.parse(JSON.stringify(state));
     if (action.type === HANDLE_FOCUS) {
-        newState.focused = true
+        return state.set('focused',true)
     } else if (action.type === HANDLE_BLUR) {
-        newState.focused = false
+        return state.set('focused',false)
     }
-    return newState
+    // state已经是immutable对象
+    return state
 }

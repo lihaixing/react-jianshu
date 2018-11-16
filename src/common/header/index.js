@@ -52,8 +52,8 @@ class Header extends Component {
 }
 
 // 连接方式 将store数据挂在props中
-const mapStateToProps = (state) => ({
-    focused: state.header.focused,
+const mapStateToProps = (state) => ({ // state是经过合并的，所以有一层header
+    focused: state.header.get('focused')
 })
 
 // 将store.dispatch方法挂在props中
