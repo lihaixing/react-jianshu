@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import {CSSTransition} from 'react-transition-group'
+import {connect} from 'react-redux'
+import {getHandleFocusAtion, getHandleBlurAtion} from './store/actionCreators'
 import {
     HeaderWrapper,
     Logo,
@@ -12,26 +14,9 @@ import {
 } from './style'
 
 class Header extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            focused: false
-        }
-        this.handleFocus = this.handleFocus.bind(this)
-        this.handleBlur = this.handleBlur.bind(this)
-    }
-    handleFocus(){
-        this.setState({
-            focused:true
-        })
-    }
-    handleBlur(){
-        this.setState({
-            focused:false
-        })
-    }
 
     render() {
+        const {focused, handleFocus, handleBlur} = this.props
         return (
             <HeaderWrapper>
                 <Logo/>
@@ -43,13 +28,13 @@ class Header extends Component {
                     </NavItem>
                     <NavItem className="right">登录</NavItem>
                     <CSSTransition
-                        in={this.state.focused}
+                        in={focused}
                         timeout={300}
                         classNames="slide"
                         appear={true}
                     >
-                        <NavSearchWrapper className={this.state.focused ? 'focused' : ''}>
-                            <NavSearch onFocus={this.handleFocus} onBlur={this.handleBlur}/>
+                        <NavSearchWrapper className={focused ? 'focused' : ''}>
+                            <NavSearch onFocus={handleFocus} onBlur={handleBlur}/>
                             <i className="iconfont">&#xe614;</i>
                         </NavSearchWrapper>
                     </CSSTransition>
@@ -66,4 +51,21 @@ class Header extends Component {
     }
 }
 
-export default Header
+// 连接方式 将store数据挂在props中
+const mapStateToProps = (state) => ({
+    focused: state.header.focused,
+})
+
+// 将store.dispatch方法挂在props中
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleFocus() {
+            dispatch(getHandleFocusAtion())
+        },
+        handleBlur() {
+            dispatch(getHandleBlurAtion())
+        }
+    }
+}
+// connect执行后返回的结果是容器组件
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
