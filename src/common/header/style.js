@@ -127,3 +127,36 @@ export const Button = styled.div`
         background:#ec6149;
     }
 `
+
+export const SearchInfo = styled.div`
+    position:absolute;
+    left:0;
+    top:50px;
+    width:240px;
+    padding:0 20px 10px;
+    height:auto;
+    box-shadow:0 0 8px rgba(0,0,0,.2);
+    .title{
+        margin-top:10px;
+        margin-bottom:10px;
+        width:100px;
+        display:inline-block;
+    }
+    ul{
+        display:flex;
+        flex-wrap: wrap;
+        li{
+            flex:0 0 auto;
+            border:1px solid #ccc;
+            margin-right:5px;
+            margin-bottom:5px;
+            font-size:10px;
+            border-radius:2px;
+            padding:3px;
+        }
+    }
+    button{
+        float:right;
+        margin-top:10px;
+    }
+`

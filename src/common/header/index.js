@@ -1,7 +1,14 @@
 import React, {Component} from 'react'
 import {CSSTransition} from 'react-transition-group'
 import {connect} from 'react-redux'
-import {getHandleFocusAtion, getHandleBlurAtion} from './store/actionCreators'
+import {
+    getHandleFocusAtion,
+    getHandleBlurAtion,
+    getListActon,
+    getHotSwitchAction,
+    getMouseEnterAction,
+    getMouseOverAction
+} from './store/actionCreators'
 import {
     HeaderWrapper,
     Logo,
@@ -10,13 +17,16 @@ import {
     NavSearchWrapper,
     NavSearch,
     Addition,
-    Button
+    Button,
+    SearchInfo
 } from './style'
 
 class Header extends Component {
 
     render() {
-        const {focused, handleFocus, handleBlur} = this.props
+        const {focused, mouseEnter, list, index, handleFocus, handleBlur, hotSwitch, handleMouseEnter, handleMouseOver} = this.props
+        const firstIndex = (index - 1) * 10
+        const currentList = list.slice(firstIndex, firstIndex + 10)
         return (
             <HeaderWrapper>
                 <Logo/>
@@ -36,6 +46,19 @@ class Header extends Component {
                         <NavSearchWrapper className={focused ? 'focused' : ''}>
                             <NavSearch onFocus={handleFocus} onBlur={handleBlur}/>
                             <i className="iconfont">&#xe614;</i>
+                            {(focused || mouseEnter) &&
+                            <SearchInfo onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseOver}>
+                                <div className="title">热门搜索</div>
+                                <button onClick={hotSwitch}>换一换</button>
+                                <ul className="searchList">
+                                    {
+                                        currentList.map((item, index) => {
+                                            return <li key={index}>{item}</li>
+                                        })
+                                    }
+                                </ul>
+                            </SearchInfo>
+                            }
                         </NavSearchWrapper>
                     </CSSTransition>
                 </Nav>
@@ -53,17 +76,30 @@ class Header extends Component {
 
 // 连接方式 将store数据挂在props中
 const mapStateToProps = (state) => ({ // state是经过合并的，所以有一层header
-    focused: state.header.get('focused')
+    focused: state.getIn(['header', 'focused']),
+    list: state.getIn(['header', 'list']),
+    index: state.getIn(['header', 'index']),
+    mouseEnter: state.getIn(['header', 'mouseEnter'])
 })
 
 // 将store.dispatch方法挂在props中
 const mapDispatchToProps = (dispatch) => {
     return {
         handleFocus() {
+            dispatch(getListActon())
             dispatch(getHandleFocusAtion())
         },
         handleBlur() {
             dispatch(getHandleBlurAtion())
+        },
+        hotSwitch() {
+            dispatch(getHotSwitchAction())
+        },
+        handleMouseEnter() {
+            dispatch(getMouseEnterAction())
+        },
+        handleMouseOver() {
+            dispatch(getMouseOverAction())
         }
     }
 }
