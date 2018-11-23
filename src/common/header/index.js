@@ -22,7 +22,9 @@ import {
 } from './style'
 
 class Header extends Component {
-
+    componentDidMount(){
+        this.props.initList()
+    }
     render() {
         const {focused, mouseEnter, list, index, handleFocus, handleBlur, hotSwitch, handleMouseEnter, handleMouseOver} = this.props
         const firstIndex = (index - 1) * 10
@@ -45,11 +47,12 @@ class Header extends Component {
                     >
                         <NavSearchWrapper className={focused ? 'focused' : ''}>
                             <NavSearch onFocus={handleFocus} onBlur={handleBlur}/>
-                            <i className="iconfont">&#xe614;</i>
+                            <i className="iconfont Aa">&#xe614;</i>
                             {(focused || mouseEnter) &&
                             <SearchInfo onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseOver}>
                                 <div className="title">热门搜索</div>
                                 <button onClick={hotSwitch}>换一换</button>
+                                <i className="iconfont spin">&#xe851;</i>
                                 <ul className="searchList">
                                     {
                                         currentList.map((item, index) => {
@@ -85,8 +88,10 @@ const mapStateToProps = (state) => ({ // state是经过合并的，所以有一�
 // 将store.dispatch方法挂在props中
 const mapDispatchToProps = (dispatch) => {
     return {
-        handleFocus() {
+        initList(){
             dispatch(getListActon())
+        },
+        handleFocus() {
             dispatch(getHandleFocusAtion())
         },
         handleBlur() {

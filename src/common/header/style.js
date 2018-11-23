@@ -52,20 +52,20 @@ export const NavSearchWrapper = styled.div`
     }
     &.slide-enter-active{
         width:220px;
-        i{
+        .Aa{
             background:#ccc;
         }
         transition:all 0.3s ease-in;
     }
     &.slide-enter-done{
         width:220px;
-        i{
+        .Aa{
             background:#ccc;
         }
     }
     &.slide-exit{
         width:220px;
-        i{
+        .Aa{
             background:#ccc;
         }
     }
@@ -76,7 +76,7 @@ export const NavSearchWrapper = styled.div`
     &.slide-exit-done{
         width:160px;
     }
-    i{
+    .Aa{
         position:absolute;
         right:4px;
         top:4px;
@@ -154,6 +154,12 @@ export const SearchInfo = styled.div`
             border-radius:2px;
             padding:3px;
         }
+    }
+    .spin{
+        float: right;
+        margin-right: 5px;
+        margin-top: 10px;
+        line-height: 22px;
     }
     button{
         float:right;

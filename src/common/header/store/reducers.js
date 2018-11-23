@@ -15,7 +15,7 @@ export default (state = defaultState, action) => {
         case HANDLE_BLUR:
             return state.set('focused', false)
         case INIT_LIST:
-            return state.set('list', action.list)
+            return state.set('list', action.list) // 连续set可以用merge代替
         case Hot_Switch:
             const currentState = state.toJS()
             const pages = Math.ceil(currentState.list.length / 10)
