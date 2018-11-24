@@ -20,7 +20,7 @@ export default (state = defaultState, action) => {
             const currentState = state.toJS()
             const pages = Math.ceil(currentState.list.length / 10)
             const newIndex = (pages === currentState.index) ? 1 : (currentState.index + 1)
-            return state.set('index', newIndex)
+            return state.set('index', newIndex).set('rotate', currentState.rotate + 360)
         case HANDLE_MOUSE_ENTER:
             return state.set('mouseEnter', true)
         case HANDLE_MOUSE_OVER:

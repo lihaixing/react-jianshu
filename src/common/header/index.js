@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 import {CSSTransition} from 'react-transition-group'
 import {connect} from 'react-redux'
 import {
@@ -22,16 +23,29 @@ import {
 } from './style'
 
 class Header extends Component {
-    componentDidMount(){
+    componentDidMount() {
         this.props.initList()
     }
+
     render() {
-        const {focused, mouseEnter, list, index, handleFocus, handleBlur, hotSwitch, handleMouseEnter, handleMouseOver} = this.props
+        const {
+            focused,
+            mouseEnter,
+            list,
+            index,
+            handleFocus,
+            handleBlur,
+            hotSwitch,
+            handleMouseEnter,
+            handleMouseOver
+        } = this.props
         const firstIndex = (index - 1) * 10
         const currentList = list.slice(firstIndex, firstIndex + 10)
         return (
             <HeaderWrapper>
-                <Logo/>
+                <Link to="/">
+                    <Logo/>
+                </Link>
                 <Nav>
                     <NavItem className="left active">首页</NavItem>
                     <NavItem className="left">下载</NavItem>
@@ -51,8 +65,10 @@ class Header extends Component {
                             {(focused || mouseEnter) &&
                             <SearchInfo onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseOver}>
                                 <div className="title">热门搜索</div>
-                                <button onClick={hotSwitch}>换一换</button>
-                                <i className="iconfont spin">&#xe851;</i>
+                                <button onClick={() => hotSwitch(this.spin)}>换一换</button>
+                                <i ref={(spin) => {
+                                    this.spin = spin
+                                }} style={{transform: 'rotate(0deg)'}} className="iconfont spin">&#xe851;</i>
                                 <ul className="searchList">
                                     {
                                         currentList.map((item, index) => {
@@ -88,7 +104,7 @@ const mapStateToProps = (state) => ({ // state是经过合并的，所以有一�
 // 将store.dispatch方法挂在props中
 const mapDispatchToProps = (dispatch) => {
     return {
-        initList(){
+        initList() {
             dispatch(getListActon())
         },
         handleFocus() {
@@ -97,7 +113,9 @@ const mapDispatchToProps = (dispatch) => {
         handleBlur() {
             dispatch(getHandleBlurAtion())
         },
-        hotSwitch() {
+        hotSwitch(spin) {
+            const prevDeg = spin.style.transform.replace(/\D/g, '');
+            spin.style.transform = 'rotate(' + (prevDeg * 1 + 360) + 'deg)'
             dispatch(getHotSwitchAction())
         },
         handleMouseEnter() {
