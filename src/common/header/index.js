@@ -10,6 +10,8 @@ import {
     getMouseEnterAction,
     getMouseOverAction
 } from './store/actionCreators'
+// 注意这里要改变的事login中的数据，方法应该写到login目录中
+import {getLoginoutAction} from '../../pages/login/store/actionCreators'
 import {
     HeaderWrapper,
     Logo,
@@ -37,7 +39,9 @@ class Header extends Component {
             handleBlur,
             hotSwitch,
             handleMouseEnter,
-            handleMouseOver
+            handleMouseOver,
+            isLogin,
+            handleLoginout
         } = this.props
         const firstIndex = (index - 1) * 10
         const currentList = list.slice(firstIndex, firstIndex + 10)
@@ -52,7 +56,12 @@ class Header extends Component {
                     <NavItem className="right">
                         <i className="iconfont">&#xe636;</i>
                     </NavItem>
-                    <NavItem className="right">登录</NavItem>
+                    {
+                        isLogin ?
+                            <NavItem onClick={handleLoginout} className="right">退出</NavItem> :
+                            <Link to="/login"><NavItem className="right">登录</NavItem></Link>
+                    }
+
                     <CSSTransition
                         in={focused}
                         timeout={300}
@@ -82,10 +91,12 @@ class Header extends Component {
                     </CSSTransition>
                 </Nav>
                 <Addition>
-                    <Button className="writing">
-                        <i className="iconfont">&#xe60e;</i>
-                        写文章
-                    </Button>
+                    <Link to="/write">
+                        <Button className="writing">
+                            <i className="iconfont">&#xe60e;</i>
+                            写文章
+                        </Button>
+                    </Link>
                     <Button className="reg">注册</Button>
                 </Addition>
             </HeaderWrapper>
@@ -98,7 +109,8 @@ const mapStateToProps = (state) => ({ // state是经过合并的，所以有一�
     focused: state.getIn(['header', 'focused']),
     list: state.getIn(['header', 'list']),
     index: state.getIn(['header', 'index']),
-    mouseEnter: state.getIn(['header', 'mouseEnter'])
+    mouseEnter: state.getIn(['header', 'mouseEnter']),
+    isLogin: state.getIn(['login', 'isLogin'])
 })
 
 // 将store.dispatch方法挂在props中
@@ -123,6 +135,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         handleMouseOver() {
             dispatch(getMouseOverAction())
+        },
+        handleLoginout() {
+            dispatch(getLoginoutAction())
         }
     }
 }
