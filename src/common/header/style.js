@@ -132,6 +132,7 @@ export const Button = styled.div`
 export const SearchInfo = styled.div`
     position:absolute;
     background:#FFF;
+    z-index:2;
     left:0;
     top:50px;
     width:240px;
